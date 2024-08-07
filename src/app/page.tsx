@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import InputBar from "@/components/InputBar";
 import ChatMessage from "@/components/ChatMessage";
+import { dummyData } from "@/lib/dummyData";
 
 const serverBaseURL = "http://localhost:8000";
 
@@ -37,7 +38,7 @@ export default function Home() {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        // const response = await fetch("http://localhost:3002/");
+        const response = await fetch("http://localhost:3002/");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -73,9 +74,12 @@ export default function Home() {
   return (
     <main className="relative flex flex-col h-screen max-w-screen-lg w-full mx-auto bg-background-black p-2">
       <div className="flex flex-col flex-grow overflow-y-auto mb-16 ml-8 hide-scrollbar">
-        <div className="text-white">
+        {dummyData.map((d,idx)=>{
+          return <ChatMessage key={idx} message={d.message}/>
+        })}
+        {/* <div className="text-white">
           <ChatMessage message={{ text: streamData, isBot: true }} />
-        </div>
+        </div> */}
       </div>
       <div className="absolute bottom-0 left-0 right-0 bg-background-black p-2">
         <InputBar />
