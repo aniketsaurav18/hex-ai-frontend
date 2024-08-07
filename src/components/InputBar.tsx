@@ -1,7 +1,7 @@
 "use client";
 import { useState, ChangeEvent, useRef, useEffect } from "react";
 
-const InputBar = () => {
+const InputBar = ({ fetchContent }: { fetchContent: any }) => {
   const [message, setMessage] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -54,6 +54,10 @@ const InputBar = () => {
                 : "bg-[#676767] text-white " // when button is inactive
             }`}
             disabled={!message.trim()}
+            onClick={() => {
+              setMessage("");
+              fetchContent(message);
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
